@@ -75,14 +75,127 @@
       </div>
       <!-- header section end -->
       <div id="mainDiv">
-         <div style="height: 600px; text-align: center;">
-            <h1 class="services_taital" style="color: #006eff; margin-top: 60px;">Area riservata</h1>
-            <input style="margin-top: 30px;" type="text" id="username" placeholder="Username"><br/>
-            <input type="password" style="margin-top: 20px;" id="password" placeholder="Password"><br/>
-            <button style="margin-top: 20px; color: white; width: 100px; background-color: #006eff; border-radius: 2px;" onclick="event.preventDefault(); login();">Log In</button>
-            <p class="services_text" id="errorText" style="color: red; display: none;">Attenzione! Username o password incorretti.</p>
+         <div id="login">
+            <div style="height: 600px; text-align: center;">
+               <h1 class="services_taital" style="color: #006eff; margin-top: 60px;">Area riservata</h1>
+               <input style="margin-top: 30px;" type="text" id="username" placeholder="Username"><br/>
+               <input type="password" style="margin-top: 20px;" id="password" placeholder="Password"><br/>
+               <button style="margin-top: 20px; color: white; width: 100px; background-color: #006eff; border-radius: 2px;" onclick="login();">Log In</button>
+               <p class="services_text" id="errorText" style="color: red; display: none;">Attenzione! Username o password incorretti.</p>
+            </div>
+         </div>
+         <div id="utente2" class="d-none">
+            <div style="text-align: right;">
+               <button style="margin-top: 20px; margin-right: 20px; color: #006eff; width: 100px; background-color: white; border-radius: 2px; border: #006eff 1px solid;" onclick="logout();">Log out</button>
+            </div>
+            <div style="height: 550px; text-align: center;">
+               <h1 class="services_taital" style="color: #006eff;">Il tuo QR code</h1>
+               <a href="expired.html" target="_blank"><img src="images/valid.png" style="border: 5px solid #006eff; border-radius: 10px; margin-top: 10px; height: 300px; width: 300px;"></a>
+               <div style="display: flex; margin-top: 40px;">
+                  <p style="margin-left: auto; margin-right: 5px; font-size:25px; color: #006eff; font-weight: bold;">Utente:</p>
+                  <p style="margin-left: 5px; margin-right: 20px; font-size:25px; font-weight: 500;">Alberto Bianchi</p>
+                  <p style="margin-left: 20px; margin-right: 5px; font-size:25px; color: #006eff; font-weight: bold;">Data di nascita:</p>
+                  <p style="margin-left: 5px; margin-right: auto; font-size:25px; font-weight: 500;">29/12/2000</p>
+               </div>
+            </div>
+         </div>
+         <div id="utente1" class="d-none">
+            <div style="text-align: right;">
+               <button style="margin-top: 20px; margin-right: 20px; color: #006eff; width: 100px; background-color: white; border-radius: 2px; border: #006eff 1px solid;" onclick="logout();">Log out</button>
+            </div>
+            <div style="height: 550px; text-align: center;">
+               <h1 class="services_taital" style="color: #006eff;">Il tuo QR code</h1>
+               <a href="valid.html" target="_blank"><img src="images/valid.png" style="border: 5px solid #006eff; border-radius: 10px; margin-top: 10px; height: 300px; width: 300px;"></a>
+               <div style="display: flex; margin-top: 40px;">
+                  <p style="margin-left: auto; margin-right: 5px; font-size:25px; color: #006eff; font-weight: bold;">Utente:</p>
+                  <p style="margin-left: 5px; margin-right: 20px; font-size:25px; font-weight: 500;">Mario Rossi</p>
+                  <p style="margin-left: 20px; margin-right: 5px; font-size:25px; color: #006eff; font-weight: bold;">Data di nascita:</p>
+                  <p style="margin-left: 5px; margin-right: auto; font-size:25px; font-weight: 500;">25/07/2000</p>
+               </div>
+            </div>
+         </div>
+         <div id="fornitore" class="d-none">
+            <div>
+               <button style="margin-top: 20px; margin-right: 20px; margin-left:auto; color: #006eff; width: 100px; background-color: white; border-radius: 2px; border: #006eff 1px solid; float:right;" onclick="logout();">Log out</button>
+            </div>
+            <div style="height: 550px; text-align: center;">
+               <div class="services_section">
+                  <div class="container">
+                     <h1 class="services_taital" style="color: #006eff;">Le tue offerte</h1>
+                     <button id="newBtn" class="new_btn_image">NUOVA INSERZIONE</button>
+                     <div class="services_section_2">
+                        <div class="row not_last_row">
+                           <div class="col-md-4 offer-card">
+                              <div style="text-align: left;">
+                                 <div class="btn_over_img">
+                                    <img src="images/mondadori.jpg" class="services_img">
+                                    <button id="modifyBtn" class="modify_btn_image"><i class="fa fa-pencil"></i></button>
+                                    <button id="deleteBtn" class="delete_btn_image"><i class="fa fa-trash-o"></i></button>
+                                 </div>
+                                 <h3 class="services_taital_internal" id="titoloSconto_1">Titolo sconto</h3>
+                                 <p class="services_text_date" id="validita_1">Validità: dal 12/02/2023 al 15/02/2023</p>
+                                 <p class="services_text" id="descrizione_1">Vieni ad usufruire dello sconto del 20% su tutti gli articoli della nuova collezione! Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
+      <!-- new Modal -->
+      <div id="newModal" class="modal_custom">
+         <!-- Modal content -->
+         <div class="modal_custom-content">
+            <div class="modal_custom-header">
+               <span id="close_btn" class="close_custom">&times;</span>
+               <h2 style="width: 80%; color: white; margin-top: 10px;">Compila il form</h2>
+            </div>
+            <div class="modal_custom-body">
+               <div class="row" style="margin-top: 20px;">
+                  <div class="col-md-6">
+                     <label for="newtitoloSconto">Titolo sconto:&nbsp;</label>
+                     <input type="text" id="newtitoloSconto" placeholder="Titolo sconto">
+                  </div>
+                  <div class="col-md-3">
+                     <label for="newdal">Dal:&nbsp;</label>
+                     <input type="date" id="newdal">
+                  </div>
+                  <div class="col-md-3">
+                     <label for="newal">Al:&nbsp;</label>
+                     <input type="date" id="newal">
+                  </div>
+               </div>
+               <div class="row" style="margin-top: 20px;">
+                  <div class="col-md-12">
+                     <label for="newtestoSconto" style="float: inline-start;">Testo sconto (Max 300 caratteri):&nbsp;</label>
+                     <textarea maxlength="300" rows="4" cols="70" id="newtestoSconto" placeholder="Inserisci qui la descrizione"></textarea>
+                  </div>
+               </div>
+               <div class="row">
+                  <p class="services_text" id="errorFormText" style="color: red; display: none; margin-left: 10px; margin-bottom: 20px;">Compila tutti i campi prima di inviare la richiesta!</p>
+               </div>
+            </div>
+            <div class="modal_custom-footer" style="height: 70px;">
+               <button class="send_btn_image" onclick="sendRequest()">Invia richiesta di inserimento</button>
+            </div>
+         </div>
+       </div>
+       <!-- delete Modal -->
+      <div id="deleteModal" class="delete_modal_custom">
+         <!-- Modal content -->
+         <div class="delete_modal_custom-content">
+            <div class="delete_modal_custom-header">
+               <span id="delete_close_btn" class="close_custom">&times;</span>
+               <h2 style="width: 80%; color: white; margin-top: 10px;">Sicuro di voler eliminare questa inserzione?</h2>
+            </div>
+            <div class="delete_modal_custom-footer" style="height: 70px;">
+               <button class="send_btn_image" onclick="sendDeleteRequest()">Invia richiesta di eliminazione</button>
+               <button class="annulla_btn_image" onclick="annullaDeleteRequest()">Annulla</button>
+            </div>
+         </div>
+       </div>
       <!-- footer section start -->
       <div class="footer_section layout_padding_light">
          <div class="container">
@@ -116,52 +229,103 @@
 </html>
 
 <script>
+   $(document).ready(() => {
+      
+      var newmodal = document.getElementById("newModal");
+      var newbtn = document.getElementById("newBtn");
+      var newspan = document.getElementById("close_btn");
+
+      var deletemodal = document.getElementById("deleteModal");
+      var deletebtn = document.getElementById("deleteBtn");
+      var deletespan = document.getElementById("delete_close_btn");
+
+      newbtn.onclick = function() {
+         newmodal.style.display = "block";
+         $("#newtitoloSconto").val("");
+         $("#newdal").val("");
+         $("#newal").val("");
+         $("#newtestoSconto").val("");
+         $("#errorFormText").attr("style", "color: red; display: none; margin-left: 10px; margin-bottom: 20px;");
+      }
+
+      newspan.onclick = function() {
+         newmodal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+         if (event.target == newmodal) {
+            newmodal.style.display = "none";
+         } else if (event.target == deletemodal) {
+            deletemodal.style.display = "none";
+         }
+      }
+
+      deletebtn.onclick = function() {
+         deletemodal.style.display = "block";
+      }
+
+      deletespan.onclick = function() {
+         deletemodal.style.display = "none";
+      }
+   });
+
    logout = () => {
-      $("#mainDiv").html(`<div style="height: 600px; text-align: center;">
-            <h1 class="services_taital" style="color: #006eff; margin-top: 60px;">Area riservata</h1>
-            <input style="margin-top: 30px;" type="text" id="username" placeholder="Username"><br/>
-            <input type="password" style="margin-top: 20px;" id="password" placeholder="Password"><br/>
-            <button style="margin-top: 20px; color: white; width: 100px; background-color: #006eff; border-radius: 2px;" onclick="event.preventDefault(); login();">Log In</button>
-            <p class="services_text" id="errorText" style="color: red; display: none;">Attenzione! Username o password incorretti.</p>
-         </div>`);
+      if(!$("#fornitore").hasClass("d-none")){
+         $("#fornitore").addClass("d-none")
+      } else if(!$("#utente1").hasClass("d-none")){
+         $("#utente1").addClass("d-none")
+      } else if(!$("#utente2").hasClass("d-none")){
+         $("#utente2").addClass("d-none")
+      }
+
+      $("#login").removeClass("d-none");
    }
 
    login = () => {
       let username = $("#username").val();
       let password = $("#password").val();
       if(username == "utente" && password == "test"){
-         $("#mainDiv").html(`<div style="text-align: right;">
-            <button style="margin-top: 20px; margin-right: 20px; color: #006eff; width: 100px; background-color: white; border-radius: 2px; border: #006eff 1px solid;" onclick="logout();">Log out</button>
-         </div>
-         <div style="height: 550px; text-align: center;">
-            <h1 class="services_taital" style="color: #006eff;">Il tuo QR code</h1>
-            <a href="valid.html" target="_blank"><img src="images/valid.png" style="border: 5px solid #006eff; border-radius: 10px; margin-top: 10px; height: 300px; width: 300px;"></a>
-            <div style="display: flex; margin-top: 40px;">
-               <p style="margin-left: auto; margin-right: 5px; font-size:25px; color: #006eff; font-weight: bold;">Utente:</p>
-               <p style="margin-left: 5px; margin-right: 20px; font-size:25px; font-weight: 500;">Mario Rossi</p>
-               <p style="margin-left: 20px; margin-right: 5px; font-size:25px; color: #006eff; font-weight: bold;">Data di nascita:</p>
-               <p style="margin-left: 5px; margin-right: auto; font-size:25px; font-weight: 500;">25/07/2000</p>
-            </div>
-         </div>`);
+         $("#login").addClass("d-none");
+         $("#utente1").removeClass("d-none");
       } else if (username == "utente2" && password == "test") {
-         $("#mainDiv").html(`<div style="text-align: right;">
-            <button style="margin-top: 20px; margin-right: 20px; color: #006eff; width: 100px; background-color: white; border-radius: 2px; border: #006eff 1px solid;" onclick="logout();">Log out</button>
-         </div>
-         <div style="height: 550px; text-align: center;">
-            <h1 class="services_taital" style="color: #006eff;">Il tuo QR code</h1>
-            <a href="expired.html" target="_blank"><img src="images/valid.png" style="border: 5px solid #006eff; border-radius: 10px; margin-top: 10px; height: 300px; width: 300px;"></a>
-            <div style="display: flex; margin-top: 40px;">
-               <p style="margin-left: auto; margin-right: 5px; font-size:25px; color: #006eff; font-weight: bold;">Utente:</p>
-               <p style="margin-left: 5px; margin-right: 20px; font-size:25px; font-weight: 500;">Alberto Bianchi</p>
-               <p style="margin-left: 20px; margin-right: 5px; font-size:25px; color: #006eff; font-weight: bold;">Data di nascita:</p>
-               <p style="margin-left: 5px; margin-right: auto; font-size:25px; font-weight: 500;">29/12/2000</p>
-            </div>
-         </div>`);
+         $("#login").addClass("d-none");
+         $("#utente2").removeClass("d-none");
       } else if (username == "fornitore" && password == "test") {
-         $("#mainDiv").html(`<button style="margin-top: 20px; color: white; width: 100px; background-color: #006eff; border-radius: 2px;" onclick="logout();">Log out</button>`);
+         $("#login").addClass("d-none");
+         $("#fornitore").removeClass("d-none");
       } else {
          $("#errorText").attr("style", "color: red;");
          $("#password").val("");
       }
-}
+   }
+
+   sendRequest = () => {
+      if($("#newtitoloSconto").val() == "" ||
+         $("#newdal").val() == "" ||
+         $("#newal").val() == "" ||
+         $("#newtestoSconto").val() == "") {
+            $("#errorFormText").attr("style", "color: red; margin-left: 10px; margin-bottom: 20px;");
+         } else {
+            alert("Richiesta inviata correttamente!");
+            document.getElementById("newModal").style.display = "none";
+         }
+   }
+
+   sendDeleteRequest = () => {
+      alert("Richiesta inviata correttamente!");
+      document.getElementById("deleteModal").style.display = "none";
+      $("#titoloSconto_1").attr("style", "color:red");
+      $("#validita_1").attr("style", "color:red");
+      $("#descrizione_1").attr("style", "color:red");
+      $("#deleteBtn").removeClass("delete_btn_image");
+      $("#deleteBtn").addClass("btnDeleteDisabled");
+      $("#deleteBtn").attr("disabled", "");
+      $("#modifyBtn").removeClass("modify_btn_image");
+      $("#modifyBtn").addClass("btnModifyDisabled");
+      $("#modifyBtn").attr("disabled", "");
+   }
+
+   annullaDeleteRequest = () => {
+      document.getElementById("deleteModal").style.display = "none";
+   }
 </script>

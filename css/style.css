@@ -463,6 +463,119 @@ button {
     margin: 0px;
 }
 
+/* Container needed to position the button. Adjust the width as needed */
+.btn_over_img {
+    position: relative;
+    width: 100%;
+  }
+  
+  /* Make the image responsive */
+  .btn_over_img img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Style the button and place it in the middle of the container/image */
+  .btn_over_img .modify_btn_image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(90%, 20%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #006eff;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  /* Style the button and place it in the middle of the container/image */
+  .btn_over_img .delete_btn_image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(215%, 20%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #006eff;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+    /* Style the button and place it in the middle of the container/image */
+    .btnDeleteDisabled{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(215%, 20%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: #006eff7e;
+        color: gray;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+      }
+
+      /* Style the button and place it in the middle of the container/image */
+    .btnModifyDisabled{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(90%, 20%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: #006eff7e;
+        color: gray;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+      }
+
+/* Style the button and place it in the middle of the container/image */
+.new_btn_image {
+    background-color: #006eff;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+/* Style the button and place it in the middle of the container/image */
+.send_btn_image {
+    background-color: limegreen;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+
+  /* Style the button and place it in the middle of the container/image */
+.annulla_btn_image {
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+
 .services_section_2 {
     width: 100%;
     float: left;
@@ -483,6 +596,131 @@ button {
     text-align: center;
     margin-bottom: 20px;
 }
+
+/* The Modal (background) */
+.modal_custom {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal_custom-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+  
+  /* The Close Button */
+  .close_custom {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close_custom:hover,
+  .close_custom:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal_custom-header {
+    padding: 2px 16px;
+    background-color: #006eff;
+    color: white;
+  }
+  
+  .modal_custom-body {padding: 2px 16px;}
+  
+  .modal_custom-footer {
+    padding: 2px 16px;
+    background-color: #006eff;
+    color: white;
+  }
+
+/* The Modal (background) */
+.delete_modal_custom {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .delete_modal_custom-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 45%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+  
+  .delete_modal_custom-header {
+    padding: 2px 16px;
+    background-color: #006eff;
+    color: white;
+  }
+  
+  .delete_modal_custom-body {padding: 2px 16px;}
+  
+  .delete_modal_custom-footer {
+    padding: 2px 16px;
+    background-color: #006eff;
+    color: white;
+  }
 
 .btn_main {
     width: 170px;
