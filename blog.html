@@ -75,7 +75,7 @@
       </div>
       <!-- header section end -->
       <div id="mainDiv">
-         <div id="login">
+         <div id="login" >
             <div style="height: 600px; text-align: center;">
                <h1 class="services_taital" style="color: #006eff; margin-top: 60px;">Area riservata</h1>
                <input style="margin-top: 30px;" type="text" id="username" placeholder="Username"><br/>
@@ -123,18 +123,18 @@
                   <div class="container">
                      <h1 class="services_taital" style="color: #006eff;">Le tue offerte</h1>
                      <button id="newBtn" class="new_btn_image">NUOVA INSERZIONE</button>
-                     <div class="services_section_2">
+                     <div class="services_section_2" id="mieOfferte">
                         <div class="row not_last_row">
                            <div class="col-md-4 offer-card">
                               <div style="text-align: left;">
                                  <div class="btn_over_img">
                                     <img src="images/mondadori.jpg" class="services_img">
-                                    <button id="modifyBtn" class="modify_btn_image"><i class="fa fa-pencil"></i></button>
-                                    <button id="deleteBtn" class="delete_btn_image"><i class="fa fa-trash-o"></i></button>
+                                    <button id="modifyBtn0" class="modify_btn_image"><i class="fa fa-pencil"></i></button>
+                                    <button id="deleteBtn0" class="delete_btn_image"><i class="fa fa-trash-o"></i></button>
                                  </div>
-                                 <h3 class="services_taital_internal" id="titoloSconto_1">Titolo sconto</h3>
-                                 <p class="services_text_date" id="validita_1">Validità: dal 12/02/2023 al 15/02/2023</p>
-                                 <p class="services_text" id="descrizione_1">Vieni ad usufruire dello sconto del 20% su tutti gli articoli della nuova collezione! Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                                 <h3 class="services_taital_internal" id="titoloSconto_0">Titolo sconto</h3>
+                                 <p class="services_text_date" id="validita_0">Validità: dal 12/02/2023 al 15/02/2023</p>
+                                 <p class="services_text" id="descrizione_0">Vieni ad usufruire dello sconto del 20% su tutti gli articoli della nuova collezione! Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
                               </div>
                            </div>
                         </div>
@@ -179,6 +179,44 @@
             </div>
             <div class="modal_custom-footer" style="height: 70px;">
                <button class="send_btn_image" onclick="sendRequest()">Invia richiesta di inserimento</button>
+            </div>
+         </div>
+       </div>
+       <!-- modify Modal -->
+      <div id="modifyModal" class="modal_custom">
+         <!-- Modal content -->
+         <div class="modal_custom-content">
+            <div class="modal_custom-header">
+               <span id="modify_close_btn" class="close_custom">&times;</span>
+               <h2 style="width: 80%; color: white; margin-top: 10px;">Compila il form</h2>
+            </div>
+            <div class="modal_custom-body">
+               <div class="row" style="margin-top: 20px;">
+                  <div class="col-md-6">
+                     <label for="modifytitoloSconto">Titolo sconto:&nbsp;</label>
+                     <input type="text" id="modifytitoloSconto" style="width: 60%;">
+                  </div>
+                  <div class="col-md-3">
+                     <label for="modifydal">Dal:&nbsp;</label>
+                     <input type="date" id="modifydal">
+                  </div>
+                  <div class="col-md-3">
+                     <label for="modifyal">Al:&nbsp;</label>
+                     <input type="date" id="modifyal">
+                  </div>
+               </div>
+               <div class="row" style="margin-top: 20px;">
+                  <div class="col-md-12">
+                     <label for="modifytestoSconto" style="float: inline-start;">Testo sconto (Max 300 caratteri):&nbsp;</label>
+                     <textarea maxlength="300" rows="4" style="width: 79%;" id="modifytestoSconto"></textarea>
+                  </div>
+               </div>
+               <div class="row">
+                  <p class="services_text" id="errorFormText_0" style="color: red; display: none; margin-left: 10px; margin-bottom: 20px;">Compila tutti i campi prima di inviare la richiesta!</p>
+               </div>
+            </div>
+            <div class="modal_custom-footer" style="height: 70px;">
+               <button class="send_btn_image" onclick="sendModifyRequest()">Invia richiesta di modifica</button>
             </div>
          </div>
        </div>
@@ -231,13 +269,142 @@
 <script>
    $(document).ready(() => {
       
+      var articoli = [];
+      var sessione = 0;
+
+      if(localStorage.getItem("articoli") == null) {
+         var articolo = { 
+            colore: "nero",
+            titolo: "Titolo sconto",
+            dal: "2023-02-12",
+            al: "2023-02-15",
+            descrizione: "Vieni ad usufruire dello sconto del 20% su tutti gli articoli della nuova collezione! Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+         };
+         articoli.push(articolo);
+         localStorage.setItem("articoli", JSON.stringify(articoli));
+      } else {
+         articoli = JSON.parse(localStorage.getItem("articoli"));
+         var htmlToInsert = "";
+         var i = 0;
+         var closedDiv = true;
+         articoli.forEach(articolo => {
+            if(i % 3 == 0){
+               closedDiv = false
+               htmlToInsert += `<div class="row not_last_row">`
+            };
+
+            let dalTemp = articolo.dal.split("-").reverse();
+            let dal = "";
+            dalTemp.forEach(el => {
+               dal += el + "/"
+            });
+            dal = dal.substring(0, dal.length - 1);
+
+            let alTemp = articolo.dal.split("-").reverse();
+            let al = "";
+            alTemp.forEach(el => {
+               al += el + "/"
+            });
+            al = al.substring(0, al.length - 1);
+
+            htmlToInsert += `<div class="col-md-4 offer-card">
+                              <div style="text-align: left;">
+                                 <div class="btn_over_img">
+                                    <img src="images/mondadori.jpg" class="services_img">
+                                    <button id="modifyBtn${i}" class="modify_btn_image"><i class="fa fa-pencil"></i></button>
+                                    <button id="deleteBtn${i}" class="delete_btn_image"><i class="fa fa-trash-o"></i></button>
+                                 </div>
+                                 <h3 class="services_taital_internal" id="titoloSconto_${i}">${articolo.titolo}</h3>
+                                 <p class="services_text_date" id="validita_${i}">Validità: dal ${dal} al ${al}</p>
+                                 <p class="services_text" id="descrizione_${i}">${articolo.descrizione}</p>
+                              </div>
+                           </div>`;
+
+            if(i % 3 == 2){
+               closedDiv = true;
+               htmlToInsert += `</div>`
+            };
+
+            i++
+         });
+
+         if(!closedDiv){
+            htmlToInsert += `</div>`
+         }
+
+         $("#mieOfferte").html(htmlToInsert);
+
+         i = 0;
+
+         articoli.forEach(articolo => {
+            if(articolo.colore == "rosso"){
+               $(`#titoloSconto_${i}`).attr(`style`, `color:red`);
+               $(`#validita_${i}`).attr(`style`, `color:red`);
+               $(`#descrizione_${i}`).attr(`style`, `color:red`);
+               $(`#deleteBtn${i}`).removeClass(`delete_btn_image`);
+               $(`#deleteBtn${i}`).addClass(`btnDeleteDisabled`);
+               $(`#deleteBtn${i}`).attr(`disabled`, ``);
+               $(`#modifyBtn${i}`).removeClass(`modify_btn_image`);
+               $(`#modifyBtn${i}`).addClass(`btnModifyDisabled`);
+               $(`#modifyBtn${i}`).attr(`disabled`, ``);
+            } else if (articolo.colore == "verde"){
+               $(`#titoloSconto_${i}`).attr(`style`, `color:green`);
+               $(`#validita_${i}`).attr(`style`, `color:green`);
+               $(`#descrizione_${i}`).attr(`style`, `color:green`);
+            } else if (articolo.colore == "giallo"){
+               $(`#titoloSconto_${i}`).attr(`style`, `color:orange`);
+               $(`#validita_${i}`).attr(`style`, `color:orange`);
+               $(`#descrizione_${i}`).attr(`style`, `color:orange`);
+            }
+
+            i++;
+         });
+      }
+
+      if(localStorage.getItem("sessione") == null){
+         localStorage.setItem("sessione", sessione);
+      } else {
+         sessione = parseInt(localStorage.getItem("sessione"));
+
+         switch (sessione) {
+            case 0:
+               $("#login").removeClass("d-none");
+               !$("#utente1").hasClass("d-none") ? $("#utente1").addClass("d-none") : null;
+               !$("#utente2").hasClass("d-none") ? $("#utente2").addClass("d-none") : null;
+               !$("#fornitore").hasClass("d-none") ? $("#fornitore").addClass("d-none") : null;
+               break;
+            case 1:
+               $("#utente1").removeClass("d-none");
+               !$("#login").hasClass("d-none") ? $("#login").addClass("d-none") : null;
+               !$("#utente2").hasClass("d-none") ? $("#utente2").addClass("d-none") : null;
+               !$("#fornitore").hasClass("d-none") ? $("#fornitore").addClass("d-none") : null;
+               break;
+            case 2:
+               $("#utente2").removeClass("d-none");
+               !$("#utente1").hasClass("d-none") ? $("#utente1").addClass("d-none") : null;
+               !$("#login").hasClass("d-none") ? $("#login").addClass("d-none") : null;
+               !$("#fornitore").hasClass("d-none") ? $("#fornitore").addClass("d-none") : null;
+               break;
+            case 3:
+               $("#fornitore").removeClass("d-none");
+               !$("#utente1").hasClass("d-none") ? $("#utente1").addClass("d-none") : null;
+               !$("#utente2").hasClass("d-none") ? $("#utente2").addClass("d-none") : null;
+               !$("#login").hasClass("d-none") ? $("#login").addClass("d-none") : null;
+               break;
+         }
+      }
+
       var newmodal = document.getElementById("newModal");
       var newbtn = document.getElementById("newBtn");
       var newspan = document.getElementById("close_btn");
 
       var deletemodal = document.getElementById("deleteModal");
-      var deletebtn = document.getElementById("deleteBtn");
+      var deleteBtns = Array.from(document.getElementsByClassName("delete_btn_image"));
       var deletespan = document.getElementById("delete_close_btn");
+
+      var modifymodal = document.getElementById("modifyModal");
+      var modifyBtns = Array.from(document.getElementsByClassName("modify_btn_image"));
+      var modifyspan = document.getElementById("modify_close_btn");
 
       newbtn.onclick = function() {
          newmodal.style.display = "block";
@@ -257,15 +424,37 @@
             newmodal.style.display = "none";
          } else if (event.target == deletemodal) {
             deletemodal.style.display = "none";
+         } else if (event.target == modifymodal) {
+            modifymodal.style.display = "none";
          }
       }
 
-      deletebtn.onclick = function() {
-         deletemodal.style.display = "block";
-      }
+      deleteBtns.forEach(btn => {
+         btn.onclick = function() {
+            localStorage.setItem("deleteButtonId", btn.id.substring(btn.id.length - 1))
+            deletemodal.style.display = "block";
+         }
+      });
 
       deletespan.onclick = function() {
          deletemodal.style.display = "none";
+      }
+
+      modifyBtns.forEach(btn => {
+         btn.onclick = function() {
+            articolo = JSON.parse(localStorage.getItem("articoli"))[btn.id.substring(btn.id.length - 1)];
+            $("#modifytitoloSconto").val(articolo.titolo);
+            $("#modifydal").val(articolo.dal);
+            $("#modifyal").val(articolo.al);
+            $("#modifytestoSconto").val(articolo.descrizione);
+            $("#errorFormText_0").attr("style", "color: red; display: none; margin-left: 10px; margin-bottom: 20px;");
+            modifymodal.style.display = "block";
+            localStorage.setItem("modifyButtonId", btn.id.substring(btn.id.length - 1))
+         }
+      });
+
+      modifyspan.onclick = function() {
+         modifymodal.style.display = "none";
       }
    });
 
@@ -279,6 +468,8 @@
       }
 
       $("#login").removeClass("d-none");
+
+      localStorage.setItem("sessione", 0);
    }
 
    login = () => {
@@ -287,12 +478,15 @@
       if(username == "utente" && password == "test"){
          $("#login").addClass("d-none");
          $("#utente1").removeClass("d-none");
+         localStorage.setItem("sessione", 1);
       } else if (username == "utente2" && password == "test") {
          $("#login").addClass("d-none");
          $("#utente2").removeClass("d-none");
+         localStorage.setItem("sessione", 2);
       } else if (username == "fornitore" && password == "test") {
          $("#login").addClass("d-none");
          $("#fornitore").removeClass("d-none");
+         localStorage.setItem("sessione", 3);
       } else {
          $("#errorText").attr("style", "color: red;");
          $("#password").val("");
@@ -306,23 +500,51 @@
          $("#newtestoSconto").val() == "") {
             $("#errorFormText").attr("style", "color: red; margin-left: 10px; margin-bottom: 20px;");
          } else {
+            articolo = {
+               colore: "verde",
+               titolo: $("#newtitoloSconto").val(),
+               dal: $("#newdal").val(),
+               al: $("#newal").val(),
+               descrizione: $("#newtestoSconto").val()
+            }
+            articoli = JSON.parse(localStorage.getItem("articoli"));
+            articoli.push(articolo);
+            localStorage.setItem("articoli", JSON.stringify(articoli));
             alert("Richiesta inviata correttamente!");
             document.getElementById("newModal").style.display = "none";
+            location.reload();
+         }
+   }
+
+   sendModifyRequest = () => {
+      if($("#modifytitoloSconto").val() == "" ||
+         $("#modifydal").val() == "" ||
+         $("#modifyal").val() == "" ||
+         $("#modifytestoSconto").val() == "") {
+            $("#errorFormText").attr("style", "color: red; margin-left: 10px; margin-bottom: 20px;");
+         } else {
+            articoli = JSON.parse(localStorage.getItem("articoli"));
+            articoli[parseInt(localStorage.getItem("modifyButtonId"))] = {
+               colore: "giallo",
+               titolo: $("#modifytitoloSconto").val(),
+               dal: $("#modifydal").val(),
+               al: $("#modifyal").val(),
+               descrizione: $("#modifytestoSconto").val()
+            }
+            localStorage.setItem("articoli", JSON.stringify(articoli));
+            alert("Richiesta inviata correttamente!");
+            document.getElementById("modifyModal").style.display = "none";
+            location.reload();
          }
    }
 
    sendDeleteRequest = () => {
+      articoli = JSON.parse(localStorage.getItem("articoli"));
+      articoli[parseInt(localStorage.getItem("deleteButtonId"))].colore = "rosso";
+      localStorage.setItem("articoli", JSON.stringify(articoli));
       alert("Richiesta inviata correttamente!");
       document.getElementById("deleteModal").style.display = "none";
-      $("#titoloSconto_1").attr("style", "color:red");
-      $("#validita_1").attr("style", "color:red");
-      $("#descrizione_1").attr("style", "color:red");
-      $("#deleteBtn").removeClass("delete_btn_image");
-      $("#deleteBtn").addClass("btnDeleteDisabled");
-      $("#deleteBtn").attr("disabled", "");
-      $("#modifyBtn").removeClass("modify_btn_image");
-      $("#modifyBtn").addClass("btnModifyDisabled");
-      $("#modifyBtn").attr("disabled", "");
+      location.reload();
    }
 
    annullaDeleteRequest = () => {

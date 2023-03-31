@@ -484,11 +484,11 @@ button {
     -ms-transform: translate(-50%, -50%);
     background-color: #006eff;
     color: white;
-    font-size: 16px;
-    padding: 10px 20px;
+    font-size: 100%;
+    padding: 2.5% 5.5%;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10%;
   }
   
   /* Style the button and place it in the middle of the container/image */
@@ -500,11 +500,11 @@ button {
     -ms-transform: translate(-50%, -50%);
     background-color: #006eff;
     color: white;
-    font-size: 16px;
-    padding: 10px 20px;
+    font-size: 100%;
+    padding: 2.5% 5.5%;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10%;
   }
 
     /* Style the button and place it in the middle of the container/image */
@@ -516,10 +516,10 @@ button {
         -ms-transform: translate(-50%, -50%);
         background-color: #006eff7e;
         color: gray;
-        font-size: 16px;
-        padding: 10px 20px;
+        font-size: 100%;
+        padding: 2.5% 5.5%;
         border: none;
-        border-radius: 5px;
+        border-radius: 10%;
       }
 
       /* Style the button and place it in the middle of the container/image */
@@ -531,10 +531,10 @@ button {
         -ms-transform: translate(-50%, -50%);
         background-color: #006eff7e;
         color: gray;
-        font-size: 16px;
-        padding: 10px 20px;
+        font-size: 100%;
+        padding: 2.5% 5.5%;
         border: none;
-        border-radius: 5px;
+        border-radius: 10%;
       }
 
 /* Style the button and place it in the middle of the container/image */
