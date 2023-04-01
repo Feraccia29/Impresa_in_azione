@@ -173,6 +173,13 @@
                      <textarea maxlength="300" rows="4" style="width: 79%;" id="newtestoSconto" placeholder="Inserisci qui la descrizione"></textarea>
                   </div>
                </div>
+               <div class="row" style="margin-top: 20px;">
+                  <div class="col-md-9">
+                     <label for="newuploadBannerImage" style="float: inline-start;">Carica immagine (almeno 600x300):&nbsp;</label>
+                     <input type='file' id="newuploadBannerImage" onchange="readURL(this);" />
+                     <img id="newbannerImg" src="" style="width:300px; height: 150px;display: none; float: right; border-radius: 10px;">
+                  </div>
+               </div>
                <div class="row">
                   <p class="services_text" id="errorFormText" style="color: red; display: none; margin-left: 10px; margin-bottom: 20px;">Compila tutti i campi prima di inviare la richiesta!</p>
                </div>
@@ -209,6 +216,13 @@
                   <div class="col-md-12">
                      <label for="modifytestoSconto" style="float: inline-start;">Testo sconto (Max 300 caratteri):&nbsp;</label>
                      <textarea maxlength="300" rows="4" style="width: 79%;" id="modifytestoSconto"></textarea>
+                  </div>
+               </div>
+               <div class="row" style="margin-top: 20px;">
+                  <div class="col-md-9">
+                     <label for="modifyuploadBannerImage" style="float: inline-start;">Carica immagine (almeno 600x300):&nbsp;</label>
+                     <input type='file' id="modifyuploadBannerImage" onchange="readModifyURL(this);" />
+                     <img id="modifybannerImg" src="" style="width:300px; height: 150px;display: none; float: right; border-radius: 10px;">
                   </div>
                </div>
                <div class="row">
@@ -273,12 +287,16 @@
       var sessione = 0;
 
       if(localStorage.getItem("articoli") == null) {
+         var bannerImage = new Image();
+         bannerImage.src = "images/mondadori.jpg";
+         var imgData = getBase64Image(bannerImage);
          var articolo = { 
             colore: "nero",
             titolo: "Titolo sconto",
             dal: "2023-02-12",
             al: "2023-02-15",
-            descrizione: "Vieni ad usufruire dello sconto del 20% su tutti gli articoli della nuova collezione! Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+            descrizione: "Vieni ad usufruire dello sconto del 20% su tutti gli articoli della nuova collezione! Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+            immagine: imgData
          };
          articoli.push(articolo);
          localStorage.setItem("articoli", JSON.stringify(articoli));
@@ -310,7 +328,7 @@
             htmlToInsert += `<div class="col-md-4 offer-card">
                               <div style="text-align: left;">
                                  <div class="btn_over_img">
-                                    <img src="images/mondadori.jpg" class="services_img">
+                                    <img src="${articolo.immagine}" class="services_img">
                                     <button id="modifyBtn${i}" class="modify_btn_image"><i class="fa fa-pencil"></i></button>
                                     <button id="deleteBtn${i}" class="delete_btn_image"><i class="fa fa-trash-o"></i></button>
                                  </div>
@@ -412,6 +430,7 @@
          $("#newdal").val("");
          $("#newal").val("");
          $("#newtestoSconto").val("");
+         $("#newbannerImg").attr("src", "");
          $("#errorFormText").attr("style", "color: red; display: none; margin-left: 10px; margin-bottom: 20px;");
       }
 
@@ -447,6 +466,7 @@
             $("#modifydal").val(articolo.dal);
             $("#modifyal").val(articolo.al);
             $("#modifytestoSconto").val(articolo.descrizione);
+            $("#modifybannerImg").attr("src", articolo.immagine);
             $("#errorFormText_0").attr("style", "color: red; display: none; margin-left: 10px; margin-bottom: 20px;");
             modifymodal.style.display = "block";
             localStorage.setItem("modifyButtonId", btn.id.substring(btn.id.length - 1))
@@ -457,6 +477,36 @@
          modifymodal.style.display = "none";
       }
    });
+
+   function readURL(input) 
+   {
+       document.getElementById("newbannerImg").style.display = "block";
+
+       if (input.files && input.files[0]) {
+           var reader = new FileReader();
+
+           reader.onload = function (e) {
+               document.getElementById('newbannerImg').src =  e.target.result;
+           }
+
+           reader.readAsDataURL(input.files[0]);
+       }
+   }
+
+   function readModifyURL(input) 
+   {
+       document.getElementById("modifybannerImg").style.display = "block";
+
+       if (input.files && input.files[0]) {
+           var reader = new FileReader();
+
+           reader.onload = function (e) {
+               document.getElementById('modifybannerImg').src =  e.target.result;
+           }
+
+           reader.readAsDataURL(input.files[0]);
+       }
+   }
 
    logout = () => {
       if(!$("#fornitore").hasClass("d-none")){
@@ -497,15 +547,19 @@
       if($("#newtitoloSconto").val() == "" ||
          $("#newdal").val() == "" ||
          $("#newal").val() == "" ||
-         $("#newtestoSconto").val() == "") {
+         $("#newtestoSconto").val() == "" ||
+         $("#newbannerImg").attr("src") == "") {
             $("#errorFormText").attr("style", "color: red; margin-left: 10px; margin-bottom: 20px;");
          } else {
+            bannerImage = document.getElementById('newbannerImg');
+            imgData = getBase64Image(bannerImage);
             articolo = {
                colore: "verde",
                titolo: $("#newtitoloSconto").val(),
                dal: $("#newdal").val(),
                al: $("#newal").val(),
-               descrizione: $("#newtestoSconto").val()
+               descrizione: $("#newtestoSconto").val(),
+               immagine: imgData
             }
             articoli = JSON.parse(localStorage.getItem("articoli"));
             articoli.push(articolo);
@@ -523,6 +577,11 @@
          $("#modifytestoSconto").val() == "") {
             $("#errorFormText").attr("style", "color: red; margin-left: 10px; margin-bottom: 20px;");
          } else {
+            imgData = "";
+            if($("#modifybannerImg").attr("src") != ""){
+               bannerImage = document.getElementById('modifybannerImg');
+               imgData = getBase64Image(bannerImage);
+            }
             articoli = JSON.parse(localStorage.getItem("articoli"));
             articoli[parseInt(localStorage.getItem("modifyButtonId"))] = {
                colore: "giallo",
@@ -531,6 +590,7 @@
                al: $("#modifyal").val(),
                descrizione: $("#modifytestoSconto").val()
             }
+            imgData != "" ? articoli[parseInt(localStorage.getItem("modifyButtonId"))].immagine = imgData : null;
             localStorage.setItem("articoli", JSON.stringify(articoli));
             alert("Richiesta inviata correttamente!");
             document.getElementById("modifyModal").style.display = "none";
@@ -549,5 +609,18 @@
 
    annullaDeleteRequest = () => {
       document.getElementById("deleteModal").style.display = "none";
+   }
+
+   function getBase64Image(img) {
+       var canvas = document.createElement("canvas");
+       canvas.width = 600;
+       canvas.height = 300;
+
+       var ctx = canvas.getContext("2d");
+       ctx.drawImage(img, 0, 0);
+
+       var dataURL = canvas.toDataURL("image/png");
+
+       return dataURL;
    }
 </script>
